@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "992160742345",
+    "project_id": "chat-app-df1ff",
+    "storage_bucket": "chat-app-df1ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992160742345:android:49600db5221002fe1d8618",
+        "android_client_info": {
+          "package_name": "com.khedro.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992160742345-nf8melkej479vjceg2gq9jkdeh2vqech.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0bOLk7r0qxiMrCA2Rvaw-LnNXujCdAyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992160742345-nf8melkej479vjceg2gq9jkdeh2vqech.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
