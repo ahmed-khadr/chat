@@ -34,6 +34,8 @@ class Messages extends StatelessWidget {
                     message: docs[i]['text'],
                     isCurrentUser:
                         docs[i]['userId'] == userSnapshot.requireData?.uid,
+                    username: docs[i]['username'],
+                    userImage: docs[i]['userImage'],
                   ),
                   itemCount: docs.length,
                 );

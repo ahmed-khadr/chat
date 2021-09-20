@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+
+import 'image_picker.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({
@@ -13,6 +17,7 @@ class AuthForm extends StatefulWidget {
     String? email,
     String? password,
     String? userName,
+    File userImageFile,
     bool isLogin,
     BuildContext ctx,
   ) submitForm;
@@ -27,15 +32,29 @@ class _AuthFormState extends State<AuthForm> {
   String? _emailAddress = '';
   String? _userName = '';
   String? _password = '';
+  File? _userPickedImage;
+
+  void _pickImage(File image) {
+    _userPickedImage = image;
+  }
 
   void _trySubmit() {
     final formState = _formKey.currentState;
     bool isValid = formState != null && formState.validate();
     FocusScope.of(context).unfocus();
+    if (_userPickedImage == null && !_isLogin) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Please pick an image'),
+          backgroundColor: Theme.of(context).errorColor,
+        ),
+      );
+      return;
+    }
     if (isValid) {
       formState.save();
       widget.submitForm(_emailAddress?.trim(), _password?.trim(),
-          _userName?.trim(), _isLogin, context);
+          _userName?.trim(), _userPickedImage!, _isLogin, context);
     } else {
       print('invalid');
     }
@@ -43,8 +62,8 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   void dispose() {
-    _formKey.currentState?.dispose();
     super.dispose();
+    _formKey.currentState?.dispose();
   }
 
   @override
@@ -60,8 +79,15 @@ class _AuthFormState extends State<AuthForm> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  if (!_isLogin)
+                    UserImagePicker(
+                      pickImage: _pickImage,
+                    ),
                   TextFormField(
                     key: const ValueKey('email'),
+                    autocorrect: false,
+                    textCapitalization: TextCapitalization.none,
+                    enableSuggestions: false,
                     validator: (value) {
                       if (value == null ||
                           value.isEmpty ||
@@ -82,6 +108,9 @@ class _AuthFormState extends State<AuthForm> {
                   if (!_isLogin)
                     TextFormField(
                       key: const ValueKey('username'),
+                      autocorrect: true,
+                      textCapitalization: TextCapitalization.words,
+                      enableSuggestions: false,
                       validator: (value) {
                         if (value == null ||
                             value.isEmpty ||
